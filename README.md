@@ -55,7 +55,7 @@ python test_IMDB.py --num_hash 5 \
   --movie_info_idx BERT_5x64/movie_info_idx__10c/ \
   --movie_keyword BERT_5x64/movie_keyword__10c/ \
   --cast_info BERT_5x64/cast_info__10c/ \
-  --path /ssd/btsan/ \
+  --path "$PATH_TO_CSV" \
   --writefile JOB_light5x64_decompose16.csv \
   --decompose_limit 16
 ```
