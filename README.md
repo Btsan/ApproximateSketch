@@ -4,6 +4,21 @@
 
 Approximate the sketch of any arbitrary selection.
 
+### Requirements
+
+- `Python` 3.6+
+- `transformers` 4.26+
+- `pytorch` 1.13+
+- `pandas` 1.5+
+- `numpy` 1.23+
+
+```
+conda install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia
+conda install -c huggingface transformers
+conda install pandas numpy
+```
+Restarting your shell may be necessary to use `transformers` after installing.
+
 ### Data
 
 The IMDB snapshot used for training can be downloaded from [`http://homepages.cwi.nl/~boncz/job/imdb.tgz`](http://homepages.cwi.nl/~boncz/job/imdb.tgz).
