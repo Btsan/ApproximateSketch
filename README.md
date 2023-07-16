@@ -7,8 +7,8 @@ Approximate the sketch of any arbitrary selection.
 ### Requirements
 
 - `Python` 3.6+
-- `transformers` 4.26+
-- `pytorch` 1.13+
+- [`transformers`](https://huggingface.co/docs/transformers) 4.26+
+- [`pytorch`](https://pytorch.org/get-started/locally/) 1.13+
 - `pandas` 1.5+
 - `numpy` 1.23+
 
