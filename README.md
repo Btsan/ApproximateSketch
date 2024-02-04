@@ -26,7 +26,7 @@ Extract the CSV files into the same directory, whose path `"$PATH_TO_CSV"/IMDB/d
 
 ### Training
 
-Pretrained models for approximating 5x64 and 5x512 Fast-AGMS sketches (doubles as 5x128 and 5x1024 Count-Min) are available in folders [BERT_5x64/](./BERT_5x64) and [BERT_5x128](./BERT_5x512).
+Pretrained models for approximating 5x64 and 5x512 Fast-AGMS sketches (doubles as 5x128 and 5x1024 Count-Min) are available in folders [BERT_5x64/](./BERT_5x64) and [BERT_5x512](./BERT_5x512).
 
 Models for approximate 5x4096 Fast-AGMS (5x8192 Count-Min) could not be uploaded, but can be trained with the following:
 
@@ -65,9 +65,9 @@ For query performance, refer to the modified PostgreSQL installation in [another
 
 ### Results
 After running the evaluation script, you should have an output similar to [this log file](./JOB_light_5x4096_decompose16.log).
-The table of Q-errors printed at the end lists many different methods, mentioned by nicknames, which we now explain:
+The table of Q-errors printed at the end lists many different methods, mentioned by abbreviations, which we now explain:
 
-| Method | Explanation |
+| Abbreviation | Explanation |
 | --- | --- |
 | ccmm | Count-Min-Mean sketch with COMPASS merge for multiway join size estimation |
 | cmm | Count-Min-Mean sketch with a novel sign-based estimation process for multiway joins|
@@ -80,3 +80,8 @@ The table of Q-errors printed at the end lists many different methods, mentioned
 
 Methods may be affixed with `upper_` or `approx_` to refer to their approximated sketches.
 Novel estimation methods listed above but not mentioned in our paper simply did not perform well in our evaluation.
+
+### Citation
+https://doi.org/10.1145/3639321
+
+TBA
