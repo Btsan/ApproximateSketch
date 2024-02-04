@@ -28,7 +28,7 @@ def get_bert(num_tables=1, num_hashes=5, num_bins=64, num_heads=12, num_layers=1
     return bert
     
 class Tokenizer:
-    def __init__(self, table_id, columns, interval_sizes, bin_hashes, one_hashes, max_length=512, granularity={}):
+    def __init__(self, table_id, columns, interval_sizes, bin_hashes, one_hashes, max_length=None, granularity={}):
         ''' Tokenizer factorizes and hashes a specific table's records for input to bert
             - table_id: integer id of table which this tokenizer is associated with
                 - used to 
@@ -46,7 +46,6 @@ class Tokenizer:
         self.columns = tuple(columns)
         self.bin_hash = tuple(bin_hashes)
         self.one_hash = tuple(one_hashes)
-        self.max_length = max_length
         self.granularity = granularity
 
         # save intervals sizes
@@ -55,6 +54,7 @@ class Tokenizer:
 
         # constant size of tokenized records (not including padding)
         self.size = sum(map(len, self.interval_sizes.values())) * len(self.bin_hash)
+        self.max_length = self.size if not max_length else max_length
 
         # constant vectors
         self.token_type_ids = torch.zeros(self.max_length, dtype=torch.int64) + self.table_id

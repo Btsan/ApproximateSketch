@@ -47,6 +47,8 @@ if __name__ == '__main__':
     parser.add_argument('--movie_keyword', action='store_true', help='trains on movie_keyword')
     parser.add_argument('--movie_info', action='store_true', help='trains on movie_info')
     parser.add_argument('--cast_info', action='store_true', help='trains on cast_info')
+    parser.add_argument('--pad_length', default=None, type=int, help='length to pad model input sequence (`None` auto determine)')
+    parser.add_argument('--max_length', default=256, type=int, help='maximum allowable model input sequence length (128 suffices for JOB-light)')
     args = parser.parse_args()
     print(args)
     assert any([args.all, args.title, args.movie_companies, args.movie_info_idx, args.movie_keyword, args.movie_info, args.cast_info]), 'No IMDB tables specified for training'
@@ -106,7 +108,7 @@ if __name__ == '__main__':
                             'episode_nr': [16, 128, 1024],
                             'imdb_index': [2]},
                 'table_id': len(datasets)}
-        title_dataset = dataset.get_table_dataset(**title, bin_hashes=bin_hashes, one_hashes=one_hashes, max_length=512)
+        title_dataset = dataset.get_table_dataset(**title, bin_hashes=bin_hashes, one_hashes=one_hashes, max_length=args.pad_length)
         print(title_dataset.table.describe().to_string(float_format='{:,.2f}'.format))
         title_dataset.stats()
         delta = datetime.now() - ts
@@ -120,7 +122,7 @@ if __name__ == '__main__':
                 'columns': ['company_type_id', 'company_id', 'movie_id'],
                 'intervals': {},
                 'table_id': len(datasets)}
-        movie_companies_dataset = dataset.get_table_dataset(**movie_companies, bin_hashes=bin_hashes, one_hashes=one_hashes, max_length=512)
+        movie_companies_dataset = dataset.get_table_dataset(**movie_companies, bin_hashes=bin_hashes, one_hashes=one_hashes, max_length=args.pad_length)
         print(movie_companies_dataset.table.describe().to_string(float_format='{:,.2f}'.format))
         movie_companies_dataset.stats()
         delta = datetime.now() - ts
@@ -134,7 +136,7 @@ if __name__ == '__main__':
                 'columns': ['info_type_id', 'movie_id'],
                 'intervals': {},
                 'table_id': len(datasets)}
-        movie_info_idx_dataset = dataset.get_table_dataset(**movie_info_idx, bin_hashes=bin_hashes, one_hashes=one_hashes, max_length=512)
+        movie_info_idx_dataset = dataset.get_table_dataset(**movie_info_idx, bin_hashes=bin_hashes, one_hashes=one_hashes, max_length=args.pad_length)
         print(movie_info_idx_dataset.table.describe().to_string(float_format='{:,.2f}'.format))
         movie_info_idx_dataset.stats()
         delta = datetime.now() - ts
@@ -148,7 +150,7 @@ if __name__ == '__main__':
                 'columns': ['keyword_id', 'movie_id'],
                 'intervals': {},
                 'table_id': len(datasets)}
-        movie_keyword_dataset = dataset.get_table_dataset(**movie_keyword, bin_hashes=bin_hashes, one_hashes=one_hashes, max_length=512)
+        movie_keyword_dataset = dataset.get_table_dataset(**movie_keyword, bin_hashes=bin_hashes, one_hashes=one_hashes, max_length=args.pad_length)
         print(movie_keyword_dataset.table.describe().to_string(float_format='{:,.2f}'.format))
         movie_keyword_dataset.stats()
         delta = datetime.now() - ts
@@ -162,7 +164,7 @@ if __name__ == '__main__':
                 'columns': ['info_type_id', 'movie_id'],
                 'intervals': {},
                 'table_id': len(datasets)}
-        movie_info_dataset = dataset.get_table_dataset(**movie_info, bin_hashes=bin_hashes, one_hashes=one_hashes, max_length=512)
+        movie_info_dataset = dataset.get_table_dataset(**movie_info, bin_hashes=bin_hashes, one_hashes=one_hashes, max_length=args.pad_length)
         print(movie_info_dataset.table.describe().to_string(float_format='{:,.2f}'.format))
         movie_info_dataset.stats()
         delta = datetime.now() - ts
@@ -176,7 +178,7 @@ if __name__ == '__main__':
                 'columns': ['role_id', 'nr_order', 'movie_id'],
                 'intervals': {'nr_order': [8, 64, 256]},
                 'table_id': len(datasets)}
-        cast_info_dataset = dataset.get_table_dataset(**cast_info, bin_hashes=bin_hashes, one_hashes=one_hashes, max_length=512)
+        cast_info_dataset = dataset.get_table_dataset(**cast_info, bin_hashes=bin_hashes, one_hashes=one_hashes, max_length=args.pad_length)
         print(cast_info_dataset.table.describe().to_string(float_format='{:,.2f}'.format))
         cast_info_dataset.stats()
         delta = datetime.now() - ts
@@ -190,7 +192,7 @@ if __name__ == '__main__':
                           num_layers=6,
                           embed_size=64,
                           feedforward_size=256,
-                          max_length=512,
+                          max_length=args.max_length,
                           pretrained=args.pretrained,)
     print(model.config)
     

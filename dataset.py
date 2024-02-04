@@ -38,7 +38,7 @@ def get_dataframe(filepath, names, columns):
     return df
 
 class TableDataset(Dataset):
-    def __init__(self, dataframe, intervals, bin_hashes, one_hashes, table_id=0, max_length=512, granularity={}):
+    def __init__(self, dataframe, intervals, bin_hashes, one_hashes, table_id=0, max_length=None, granularity={}):
         ''' dataset for a table
             - dataframe: a pandas dataframe
             - intervals: dict mapping each column to a list of interval sizes
@@ -117,7 +117,7 @@ class TableDataset(Dataset):
     def __len__(self):
         return len(self.table)
     
-def get_table_dataset(filepath, names, columns, intervals, bin_hashes, one_hashes, table_id=0, max_length=512, granularity={}):
+def get_table_dataset(filepath, names, columns, intervals, bin_hashes, one_hashes, table_id=0, max_length=None, granularity={}):
     df = pd.read_csv(filepath,
                      names=names,
                      usecols=columns,

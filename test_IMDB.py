@@ -207,14 +207,14 @@ def estimate_join(models, predicates, keys, datasets, attention_mask=False, midd
         other_approx_cmm = [approx_cmm[t] for t in predicates if t != middle]
         other_upper_cmm = [upper_cmm[t] for t in predicates if t != middle]
 
-        for indices in permutations([i for i in range(num_tables-1)], num_tables-1):
-            merged_actual_sketch = merge_sketches(actual_sketch[middle][indices])
-            merged_approx_sketch = merge_sketches(approx_sketch[middle][indices])
-            merged_upper_sketch = merge_sketches(upper_sketch[middle][indices])
+        for indices in permutations([i for i in range(len(keys)-1)], len(keys)-1):
+            merged_actual_sketch = merge_sketches(actual_sketch[middle][[indices]])
+            merged_approx_sketch = merge_sketches(approx_sketch[middle][[indices]])
+            merged_upper_sketch = merge_sketches(upper_sketch[middle][[indices]])
 
-            merged_actual_cmm = merge_sketches(actual_cmm[middle][indices])
-            merged_approx_cmm = merge_sketches(approx_cmm[middle][indices])
-            merged_upper_cmm = merge_sketches(upper_cmm[middle][indices])
+            merged_actual_cmm = merge_sketches(actual_cmm[middle][[indices]])
+            merged_approx_cmm = merge_sketches(approx_cmm[middle][[indices]])
+            merged_upper_cmm = merge_sketches(upper_cmm[middle][[indices]])
 
             assert len(indices) == len(other_actual_sketch), f'{indices} not equal to {len(other_actual_sketch)}'
             for row, idx in enumerate(indices):
