@@ -82,6 +82,5 @@ Methods may be affixed with `upper_` or `approx_` to refer to their approximated
 Novel estimation methods listed above but not mentioned in our paper simply did not perform well in our evaluation.
 
 ### Citation
-https://doi.org/10.1145/3639321
 
 TBA
