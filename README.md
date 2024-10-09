@@ -1,5 +1,3 @@
-<meta name="robots" content="noindex">
-
 # ApproximateSketch
 
 Approximate the sketch of any arbitrary selection. ([paper](https://doi.org/10.1145/3639321))
