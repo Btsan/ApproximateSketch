@@ -4,23 +4,26 @@ Approximate the sketch of any arbitrary selection. ([paper](https://doi.org/10.1
 
 ### Requirements
 
-- Python 3.6+
-- [transformers](https://huggingface.co/docs/transformers) 4.26+
-- [pytorch](https://pytorch.org/get-started/locally/) 1.13+
-- [pandas](https://pandas.pydata.org/docs/getting_started/) 1.5+
-- [numpy](https://numpy.org/install) 1.23+
+- Python >= 3.8 (tested up to 3.12)
+- [numpy](https://numpy.org/install) >= 1.24.4
+- [pandas](https://pandas.pydata.org/docs/getting_started/) >= 2.0.3
+- [transformers](https://huggingface.co/docs/transformers) >= 4.46.3
+- [pytorch](https://pytorch.org/get-started/locally/) >= 2.3.1
 
-``` bash
-conda install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia
-conda install -c huggingface transformers
-conda install pandas numpy
+To quickly install the packages:
+```bash
+pip3 install -r requirements.txt
 ```
-Restarting your shell may be necessary to use `transformers` after installing.
 
 ### Data
 
 The IMDB snapshot used for training can be downloaded from [`http://homepages.cwi.nl/~boncz/job/imdb.tgz`](http://homepages.cwi.nl/~boncz/job/imdb.tgz).
 Extract the CSV files into the same directory, whose path `"$PATH_TO_CSV"/IMDB/data/` can be provided to the training scripts.
+
+To download and prepare the directory:
+```bash
+bash download_imdb.sh
+```
 
 ### Training
 
@@ -29,6 +32,7 @@ Pretrained models for approximating 5x64 and 5x512 Fast-AGMS sketches (doubles a
 Models for approximate 5x4096 Fast-AGMS (5x8192 Count-Min) can be trained with the following:
 
 ``` bash
+PATH_TO_CSV=./ # expected structure is ./IMDB/data/*.csv
 python train_IMDB.py --num_hash 5 --num_bins 4096 --batch_size 128 --epochs 1 --save BERT_5x4096/ --path "$PATH_TO_CSV" --title
 python train_IMDB.py --num_hash 5 --num_bins 4096 --batch_size 128 --epochs 1 --save BERT_5x4096/ --path "$PATH_TO_CSV" --movie_companies
 python train_IMDB.py --num_hash 5 --num_bins 4096 --batch_size 128 --epochs 1 --save BERT_5x4096/ --path "$PATH_TO_CSV" --movie_info_idx
@@ -52,18 +56,23 @@ python test_IMDB.py --num_hash 5 \
   --movie_companies BERT_5x64/movie_companies__10c/ \
   --movie_info_idx BERT_5x64/movie_info_idx__10c/ \
   --movie_keyword BERT_5x64/movie_keyword__10c/ \
+  --movie_info BERT_5x64/movie_info__10c/ \
   --cast_info BERT_5x64/cast_info__10c/ \
   --path "$PATH_TO_CSV" \
   --writefile JOB_light5x64_decompose16.csv \
   --decompose_limit 16
 ```
-Additional examples in [`evaluate.sh`](./evaluate.sh).
+Alternatively, run [`evaluate.sh`](./evaluate.sh) to evaluate models on JOB-light and JOB-light-ranges:
+```bash
+# evaluate BERT_5x64 models with a decomposition limit of 16
+bash evaluate.sh 64 16
+```
 
 For query performance, refer to the modified PostgreSQL installation from [another work that we have cited](https://github.com/Nathaniel-Han/End-to-End-CardEst-Benchmark).
 
 ### Results
 After running the evaluation script, you should have an output similar to [this log file](./JOB_light_5x4096_decompose16.log).
-The table of Q-errors printed at the end lists many different methods, mentioned by abbreviations, which we now explain:
+The table of Q-errors printed at the end lists many different methods, abbreviated:
 
 | Abbreviation | Explanation |
 | --- | --- |
