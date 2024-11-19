@@ -4,11 +4,11 @@ Approximate the sketch of any arbitrary selection. ([paper](https://doi.org/10.1
 
 ### Requirements
 
-- Python >= 3.8 (tested up to 3.12)
-- [numpy](https://numpy.org/install) >= 1.24.4
-- [pandas](https://pandas.pydata.org/docs/getting_started/) >= 2.0.3
-- [transformers](https://huggingface.co/docs/transformers) >= 4.46.3
-- [pytorch](https://pytorch.org/get-started/locally/) >= 2.3.1
+- Python >= 3.7.1 (tested up to 3.12)
+- [numpy](https://numpy.org/install) >= 1.21
+- [pandas](https://pandas.pydata.org/docs/getting_started/) >= 1.3
+- [transformers](https://huggingface.co/docs/transformers) >= 4.3
+- [pytorch](https://pytorch.org/get-started/locally/) >= 1.13
 
 To quickly install the packages:
 ```bash
