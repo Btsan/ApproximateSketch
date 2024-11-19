@@ -1,0 +1,7 @@
+numpy>=2.1.3
+pandas>=2.2.3
+transformers==4.46.3
+accelerate==1.1.1
+
+--find-links https://download.pytorch.org/whl/cu118
+torch
