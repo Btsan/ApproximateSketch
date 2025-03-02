@@ -17,7 +17,8 @@ pip3 install -r requirements.txt
 
 ### Data
 
-The IMDB snapshot used for training can be downloaded from [`http://homepages.cwi.nl/~boncz/job/imdb.tgz`](http://homepages.cwi.nl/~boncz/job/imdb.tgz).
+The IMDB snapshot used for training can be downloaded from <s>http<area>://homepages.cwi.nl/~boncz/job/imdb.tgz</s> [http://event.cwi.nl/da/job/imdb.tgz](http://event.cwi.nl/da/job/imdb.tgz) or [https://github.com/gregrahn/join-order-benchmark](https://github.com/gregrahn/join-order-benchmark)
+
 Extract the CSV files into the same directory, whose path `"$PATH_TO_CSV"/IMDB/data/` can be provided to the training scripts.
 
 To download and prepare the directory:
